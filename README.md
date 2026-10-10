@@ -11,3 +11,15 @@ Spanish-first demo website for Dentista Hispano Garland, 2130 W Kingsley Rd, Gar
 - [ ] Full list of treatments (listings only mention cleanings, check-ups, fillings, preventive care)
 - [ ] Which PPO plans, and details of the savings plan for uninsured patients
 - [ ] Logo, if they have one
+
+## Stack
+- **Next.js** (static export) + **TypeScript** + **Tailwind CSS v4**
+- **Magic UI** (Marquee, MagicCard, BorderBeam), **Motion**, **GSAP**, **Lenis** smooth scroll, **Phosphor** icons
+- Strings live in `src/content/strings.json` (English plus each translation); the page is `src/app/page.tsx`
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static site in out/
+```
+Pushing to `main` builds and deploys to GitHub Pages (`.github/workflows/pages.yml`).

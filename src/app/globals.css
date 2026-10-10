@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Dentista Hispano: Talavera-tile blue and sunflower yellow on clean white */
+@theme inline {
+  --color-background: var(--bg);
+  --color-border: var(--line);
+  --color-bg: var(--bg);
+  --color-bg2: var(--bg-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
+  --color-blue: var(--blue);
+  --color-bluetext: var(--blue-text);
+  --color-sun: var(--sun);
+  --color-coral: var(--coral);
+  --color-tint: var(--tint);
+  --font-display: var(--font-young), Georgia, serif;
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+  --ease-silk: cubic-bezier(.32, .72, 0, 1);
+  --ease-spring: cubic-bezier(.34, 1.4, .64, 1);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--gap))); } }
+}
+
+:root {
+  --bg: #f7f8fc; --bg-2: #edf1fa; --card: #ffffff; --ink: #14213d; --soft: #56607a; --line: rgba(20, 33, 61, .1);
+  --blue: #1d4ea0; --blue-text: #1d4ea0; --sun: #f2b632; --coral: #d4543d; --tint: #e3ebfa; --tile: rgba(29, 78, 160, .09);
+  --glass: rgba(247, 248, 252, .76); --hi: rgba(255, 255, 255, .9); --shadow: rgba(20, 33, 61, .18); --map: none; --on-blue: #fff;
+}
+.dark {
+  --bg: #0b1324; --bg-2: #0f1930; --card: #13203f; --ink: #eef2fb; --soft: #a3aec8; --line: rgba(238, 242, 251, .09);
+  --blue: #7ea6f0; --blue-text: #9dbcf6; --sun: #f5c451; --coral: #f2876f; --tint: #1b2a52; --tile: rgba(126, 166, 240, .07);
+  --glass: rgba(11, 19, 36, .72); --hi: rgba(255, 255, 255, .05); --shadow: rgba(0, 0, 0, .55);
+  --map: invert(.9) hue-rotate(180deg) saturate(.6); --on-blue: #08132b;
+  color-scheme: dark;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.06; letter-spacing: -.015em; text-wrap: balance; }
+h1 em, h2 em { font-style: normal; color: var(--blue-text); background: linear-gradient(transparent 62%, color-mix(in srgb, var(--sun) 55%, transparent) 62% 92%, transparent 92%); }
+::selection { background: #f2b632; color: #3a2a00; }
+:focus-visible { outline: 3px solid #f2b632; outline-offset: 3px; border-radius: 10px; }
+/* Talavera tile pattern */
+.tiles { background-image: radial-gradient(circle at 50% 50%, transparent 9px, var(--tile) 10px 12px, transparent 13px), conic-gradient(from 45deg at 50% 50%, var(--tile) 0 25%, transparent 0 50%, var(--tile) 0 75%, transparent 0); background-size: 44px 44px; }
+@keyframes pop { 0% { transform: scale(.4) rotate(-12deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+.pop { animation: pop .45s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes float { 50% { transform: translateY(-10px); } }
+.float { animation: float 6s ease-in-out infinite; }
+
+@layer base {
+  html { overflow-x: clip; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; transition: background-color .5s var(--ease-silk), color .5s var(--ease-silk); }
+  p { text-wrap: pretty; }
+}
+
+body::after { content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .04; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+.glass { background: var(--glass); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); }
+.bezel { padding: 6px; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* theme change grows out of the switch that was pressed */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: grow .6s cubic-bezier(.7, 0, .3, 1); }
+@keyframes grow { from { clip-path: circle(0 at var(--rx, 100%) var(--ry, 0)); } to { clip-path: circle(var(--rr, 150vmax) at var(--rx, 100%) var(--ry, 0)); } }
+
+.rv { opacity: 0; transform: translateY(40px); filter: blur(8px); transition-property: opacity, transform, filter; transition-duration: 1s; transition-timing-function: cubic-bezier(.32, .72, 0, 1); }
+.rv.in { opacity: 1; transform: none; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; filter: none; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media (prefers-reduced-transparency: reduce) { .glass { background: var(--bg); backdrop-filter: none; } }
