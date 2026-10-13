@@ -101,14 +101,14 @@ export default function Home() {
     <>
       <header className="pointer-events-none sticky top-3 z-40 px-4">
         <nav className="glass pointer-events-auto mx-auto flex h-[72px] max-w-[1180px] items-center justify-between gap-3 rounded-[22px] border border-line ps-3 pe-2.5 shadow-[inset_0_1px_0_var(--hi),0_20px_50px_-28px_var(--shadow)]">
-          <a href="#top" className="flex flex-none items-center gap-2.5" aria-label="Dentista Hispano Garland">
-            <span className="relative grid size-[42px] place-items-center rounded-[13px] bg-blue text-[var(--on-blue)] after:absolute after:-top-[3px] after:-right-[3px] after:size-3 after:rounded-full after:border-2 after:border-bg after:bg-sun"><Tooth size={24} weight="fill" /></span>
-            <span><b className="block font-display text-[21px] leading-none font-normal">Dentista Hispano</b><small className="mt-0.5 block text-xs font-bold tracking-[.06em] text-soft">GARLAND, TX</small></span>
+          <a href="#top" className="flex min-w-0 items-center gap-2.5" aria-label="Dentista Hispano Garland">
+            <span className="relative grid size-[42px] flex-none place-items-center rounded-[13px] bg-blue text-[var(--on-blue)] after:absolute after:-top-[3px] after:-right-[3px] after:size-3 after:rounded-full after:border-2 after:border-bg after:bg-sun"><Tooth size={24} weight="fill" /></span>
+            <span className="min-w-0"><b className="block font-display text-[21px] leading-none font-normal max-[400px]:text-[17px]">Dentista Hispano</b><small className="mt-0.5 block text-xs font-bold tracking-[.06em] text-soft">GARLAND, TX</small></span>
           </a>
           <div className="flex items-center gap-1 text-[15px] font-semibold max-[1040px]:hidden">
             {[["servicios", "navServices"], ["pagos", "navPay"], ["visita", "navVisit"]].map(([id, k]) => <a key={id} href={`#${id}`} className="rounded-xl px-4 py-2 text-soft transition-colors hover:bg-bg2 hover:text-ink" dangerouslySetInnerHTML={{ __html: t(k) }} />)}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-none items-center gap-3 max-sm:gap-2">
             <Bubble /><NightTooth />
             <a href={TEL} className={cn(primary, "px-5 py-2.5 max-sm:hidden")}><Phone size={17} weight="bold" />{PHONE}</a>
           </div>
